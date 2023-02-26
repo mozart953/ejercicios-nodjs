@@ -10,6 +10,9 @@ const servidor = http.createServer((req, res)=>{
 
     res.statusCode=404;
     console.log(res.statusCode);
+    res.setHeader('content-type', 'application/json');
+    console.log(res.getHeaders());
+    res.end('hola mundo');
 });
 
 const puerto = 3000;
