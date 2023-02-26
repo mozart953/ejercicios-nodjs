@@ -1,10 +1,13 @@
 const http = require('http');
-const cursos = require('./cursos');
+const {infoCursos} = require('./cursos');
 
 
 
 const servidor = http.createServer((req,res)=>{
-    const{method} = req;
+   // const{method} = req;
+
+   const method = req.method;
+
 
     switch(method){
         case 'GET':
@@ -13,15 +16,20 @@ const servidor = http.createServer((req,res)=>{
         case 'POST':
             return manejarSolicitudPOST(req, res);
         default:
-            console.log(`El metodo usado no puede ser manejado por el servidor: ${method}`)
+            res.statusCode = 501;
+            res.end(`El metodo usado no puede ser manejado por el servidor: ${method}`)
 
 
     }
 });
 
-function manejarSolicitudPOST(rq, res){
+function manejarSolicitudPOST(req, res){
     const path = req.url;
-    if(){
+
+    if(path === '/cursos/programacion'){
+       res.statusCode = 200;
+       
+        return res.end('El servidor recibio una solicitud POST para /curosos/programacion')
 
     }
 }
@@ -30,15 +38,18 @@ function manejarSolicitudPOST(rq, res){
 function manejarSolicitudGET(req, res){
     const path = req.url ;
 
+    console.log(res.statusCode);
+
     if(path === '/'){
-        res.statusCode = 200;
-        res.end ('Bienvenidos')
+        //res.statusCode = 200;
+        res.writeHead(200,{'Content-Type':'application/json'});
+       return res.end ('Bienvenidos')
     }else if(path==='/cursos'){
-        res.statusCode = 200;
-        res.end(JSON.stringify(cursos.infoCursos));
+        //res.statusCode = 200;
+        return res.end(JSON.stringify(infoCursos));
     }else if (path ==='/cursos/programacion'){
-        res.statusCode = 200;
-        res.end(JSON.stringify(cursos.infoCursos.programacion));
+        //res.statusCode = 200;
+        return res.end(JSON.stringify(infoCursos.programacion));
     }
 
     res.statusCode = 404;
