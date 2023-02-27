@@ -27,9 +27,29 @@ function manejarSolicitudPOST(req, res){
     const path = req.url;
 
     if(path === '/cursos/programacion'){
-       res.statusCode = 200;
+       //res.statusCode = 200;
+       let cuerpo = '';
+       req.on('data', contenido=>{
+        cuerpo += contenido.toString();
+       });
        
-        return res.end('El servidor recibio una solicitud POST para /curosos/programacion')
+
+       req.on('end', ()=>{
+        console.log(cuerpo);
+        console.log(typeof cuerpo);
+
+        //convertir a un objeto de javascript
+        cuerpo = JSON.parse(cuerpo);
+
+        console.log(typeof cuerpo);
+        console.log(cuerpo.title);
+
+
+         res.end('El servidor recibio una solicitud POST para /curosos/programacion')
+       });
+
+
+        return res.end('El servidor recibio una solicitud POST para /curosos/programacion');
 
     }
 }
