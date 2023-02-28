@@ -50,4 +50,18 @@ routerProgramacion.post('/',(req, res)=>{
 });
 
 
+
+routerProgramacion.put('/:id',(req, res)=>{
+   const cursoActualizado =  req.body;
+   const id = req.params.id;
+
+   const indice = programacion.findIndex(curso => curso.id==id);
+
+   if(indice>=0){
+
+   }
+
+
+});
+
 module.exports = routerProgramacion;
