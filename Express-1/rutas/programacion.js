@@ -4,7 +4,7 @@ const {programacion} = require('../datos/cursos.js').infoCursos;
 
 const routerProgramacion = express.Router(); 
 
-
+routerProgramacion.use(express.json());
 
 routerProgramacion.get('/',(req,res)=>{
     res.send(JSON.stringify(programacion));
@@ -42,5 +42,12 @@ routerProgramacion.get('/:lenguaje/:nivel',(req, res)=>{
   
 
 });
+
+routerProgramacion.post('/',(req, res)=>{
+    let cursoNuevo = req.body;
+    programacion.push(cursoNuevo);
+    res.send(JSON.stringify(programacion));
+});
+
 
 module.exports = routerProgramacion;
