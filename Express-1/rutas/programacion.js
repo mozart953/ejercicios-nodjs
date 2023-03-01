@@ -30,7 +30,8 @@ routerProgramacion.get('/:lenguaje/:nivel',(req, res)=>{
     //const resultados2 = infoCursos.programacion.filter(curso =>curso.nivel= nivel);
 
     if(resultados1.length ===0 ){
-        return res.status(404).send(`No se encontraron cursos de ${lenguaje} y nivel ${nivel} `)
+       // return res.status(404).send(`No se encontraron cursos de ${lenguaje} y nivel ${nivel} `)
+        return res.status(404).end();
     }
 
     if(req.query.ordenar === 'vistas'){
@@ -66,5 +67,37 @@ routerProgramacion.put('/:id',(req, res)=>{
 
 
 });
+
+routerProgramacion.patch('/:id',(req,res)=>{
+    const infoActualizada = req.body;
+    const id = req.params.id;
+
+    const indice = programacion.findIndex(curso=> curso.id ==id);
+
+    if(indice>=0){
+        const cursoModificar = programacion[indice] ; 
+        Object.assign(cursoModificar, infoActualizada);
+    }else{
+        res.status(404);
+    }
+
+    res.send(JSON.stringify(programacion))
+});
+
+routerProgramacion.delete('/:id', (req, res)=>{
+    const id = req.params.id;
+
+    const indice = programacion.findIndex(curso => curso.id ==id);
+
+    if(indice>=0){
+        programacion.splice(indice,1);
+    }
+    res.send(JSON.stringify(programacion));
+    //res.json(programacion);
+
+});
+
+
+
 
 module.exports = routerProgramacion;
