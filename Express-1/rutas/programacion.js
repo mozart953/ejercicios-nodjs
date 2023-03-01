@@ -58,8 +58,11 @@ routerProgramacion.put('/:id',(req, res)=>{
    const indice = programacion.findIndex(curso => curso.id==id);
 
    if(indice>=0){
+    programacion[indice]=cursoActualizado;
 
    }
+
+   res.send(JSON.stringify(programacion));
 
 
 });

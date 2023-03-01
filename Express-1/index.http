@@ -8,3 +8,7 @@ Content-Type: application/json
     "vistas": 45676,
     "nivel":"basico"
 }
+
+###
+PUT http://localhost:3000/api/cursos/programacion/2 
+Content-Type: application/json
